@@ -1,0 +1,80 @@
+<!-- template.html -->
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="http://fb.me/react-0.10.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.10.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/jsx">
+      /**
+       * @jsx React.DOM
+       */
+      // The above declaration must remain intact at the top of the script.
+      // Your code here
+      // tutorial1.js & tutorial3.js
+      var CommentBox = React.createClass({
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>Comments</h1>
+              <CommentList />
+              <CommentForm />
+            </div>
+          );
+        }
+      });
+      // tutorial2.js & tutorial4.js
+      var CommentList = React.createClass({
+        render: function() {
+          return (
+            <div className="commentList">
+              <Comment author="Pete Hunt">This is one comment</Comment>
+              <Comment author="Jordan Walke">This is *another* comment</Comment>
+            </div>
+          );
+        }
+      });
+
+      var CommentForm = React.createClass({
+        render: function() {
+          return (
+            <div className="CommentForm">
+              Hello, world! I am a CommentForm.
+            </div>
+            );
+        }
+      });
+
+      // tutorial5.js, tutorial6.js & tutorial7.js
+      var converter = new Showdown.converter();
+      var Comment = React.createClass({
+        render: function() {
+          var rawMarkup = converter.makeHtml(this.props.children.toString());
+          return (
+            <div className="comment">
+              <h2 className="commentAuthor">
+                {this.props.author}
+              </h2>
+              <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+            </div>
+          )
+        }
+      });
+
+      // tutorial8.js
+      var data = [
+        {author: "Pete Hunt", text: "This is one comment."},
+        {author: "Jordan Walke", text: "This is *another* comment"}
+      ];
+
+      React.renderComponent(
+        <CommentBox />,
+        document.getElementById("content")
+      );
+    </script>
+  </body>
+</html>
